@@ -1,44 +1,810 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-  <meta charset="UTF-8">
-  <title>Andre DeGregorio | Data Analyst</title>
-  <link rel="stylesheet" href="style.css">
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Andre DeGregorio - Data and ML analyst r</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        :root {
+            --primary: #2D3436;
+            --accent: #6C5CE7;
+            --accent-light: #A29BFE;
+            --secondary: #00B894;
+            --warm: #FD79A8;
+            --light-bg: #F5F3FF;
+            --text: #2D3436;
+            --text-light: #636E72;
+            --white: #FFFFFF;
+            --card-shadow: 0 4px 6px rgba(0, 0, 0, 0.07);
+            --hover-shadow: 0 10px 30px rgba(108, 92, 231, 0.15);
+        }
+
+        body {
+            font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, 'Helvetica Neue', Arial, sans-serif;
+            line-height: 1.6;
+            color: var(--text);
+            overflow-x: hidden;
+        }
+
+        /* Typography */
+        h1 {
+            font-size: clamp(2.5rem, 5vw, 4rem);
+            font-weight: 800;
+            line-height: 1.1;
+            letter-spacing: -0.02em;
+        }
+
+        h2 {
+            font-size: clamp(2rem, 4vw, 3rem);
+            font-weight: 700;
+            margin-bottom: 1.5rem;
+            letter-spacing: -0.01em;
+        }
+
+        h3 {
+            font-size: 1.5rem;
+            font-weight: 600;
+            margin-bottom: 0.5rem;
+        }
+
+        .serif {
+            font-family: 'Georgia', 'Times New Roman', serif;
+            font-weight: 400;
+            line-height: 1.8;
+        }
+
+        /* Navigation */
+        nav {
+            position: fixed;
+            top: 0;
+            width: 100%;
+            background: rgba(255, 255, 255, 0.95);
+            backdrop-filter: blur(10px);
+            z-index: 1000;
+            padding: 1rem 0;
+            transition: all 0.3s ease;
+            box-shadow: 0 2px 20px rgba(0, 0, 0, 0.05);
+        }
+
+        nav.scrolled {
+            padding: 0.75rem 0;
+        }
+
+        .nav-container {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 0 2rem;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+
+        .logo {
+            font-size: 1.5rem;
+            font-weight: 700;
+            color: var(--accent);
+            text-decoration: none;
+            transition: transform 0.3s ease;
+        }
+
+        .logo:hover {
+            transform: translateY(-2px);
+        }
+
+        .nav-links {
+            display: flex;
+            gap: 2rem;
+            list-style: none;
+        }
+
+        .nav-links a {
+            color: var(--text);
+            text-decoration: none;
+            font-weight: 500;
+            transition: color 0.3s ease;
+            position: relative;
+        }
+
+        .nav-links a::after {
+            content: '';
+            position: absolute;
+            bottom: -5px;
+            left: 0;
+            width: 0;
+            height: 2px;
+            background: var(--accent);
+            transition: width 0.3s ease;
+        }
+
+        .nav-links a:hover::after {
+            width: 100%;
+        }
+
+        /* Hero Section */
+        .hero {
+            min-height: 100vh;
+            display: flex;
+            align-items: center;
+            background: linear-gradient(135deg, var(--light-bg) 0%, rgba(255, 255, 255, 0.9) 100%);
+            position: relative;
+            overflow: hidden;
+        }
+
+        .hero::before {
+            content: '';
+            position: absolute;
+            width: 500px;
+            height: 500px;
+            background: radial-gradient(circle, var(--accent-light) 0%, transparent 70%);
+            top: -200px;
+            right: -200px;
+            opacity: 0.3;
+            animation: float 20s ease-in-out infinite;
+        }
+
+        @keyframes float {
+            0%, 100% { transform: translate(0, 0) rotate(0deg); }
+            33% { transform: translate(-30px, 30px) rotate(120deg); }
+            66% { transform: translate(30px, -30px) rotate(240deg); }
+        }
+
+        .hero-content {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 0 2rem;
+            position: relative;
+            z-index: 1;
+        }
+
+        .hero-text {
+            max-width: 700px;
+        }
+
+        .hero h1 {
+            margin-bottom: 1.5rem;
+            background: linear-gradient(135deg, var(--accent) 0%, var(--secondary) 100%);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
+        }
+
+        .hero .subtitle {
+            font-size: 1.5rem;
+            color: var(--text-light);
+            margin-bottom: 2rem;
+            font-weight: 300;
+        }
+
+        .cta-buttons {
+            display: flex;
+            gap: 1rem;
+            flex-wrap: wrap;
+        }
+
+        .btn {
+            padding: 1rem 2rem;
+            border-radius: 50px;
+            text-decoration: none;
+            font-weight: 600;
+            transition: all 0.3s ease;
+            display: inline-block;
+            cursor: pointer;
+            border: none;
+            font-size: 1rem;
+        }
+
+        .btn-primary {
+            background: linear-gradient(135deg, var(--accent) 0%, var(--accent-light) 100%);
+            color: white;
+            box-shadow: 0 4px 15px rgba(108, 92, 231, 0.3);
+        }
+
+        .btn-primary:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 6px 25px rgba(108, 92, 231, 0.4);
+        }
+
+        .btn-secondary {
+            background: white;
+            color: var(--accent);
+            border: 2px solid var(--accent);
+        }
+
+        .btn-secondary:hover {
+            background: var(--accent);
+            color: white;
+            transform: translateY(-2px);
+        }
+
+        /* About Section */
+        .about {
+            padding: 5rem 0;
+            background: white;
+        }
+
+        .container {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 0 2rem;
+        }
+
+        .about-content {
+            display: grid;
+            grid-template-columns: 1fr 2fr;
+            gap: 4rem;
+            align-items: center;
+        }
+
+        .profile-image {
+            position: relative;
+        }
+
+        .profile-image img {
+            width: 100%;
+            max-width: 350px;
+            border-radius: 20px;
+            box-shadow: var(--hover-shadow);
+        }
+
+        .profile-image::before {
+            content: '';
+            position: absolute;
+            top: -20px;
+            left: -20px;
+            right: 20px;
+            bottom: 20px;
+            background: linear-gradient(135deg, var(--accent-light) 0%, var(--secondary) 100%);
+            border-radius: 20px;
+            z-index: -1;
+            opacity: 0.3;
+        }
+
+        .about-text h2 {
+            color: var(--accent);
+        }
+
+        .about-text p {
+            font-size: 1.1rem;
+            margin-bottom: 1.5rem;
+            color: var(--text-light);
+        }
+
+        .skills {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 0.75rem;
+            margin-top: 2rem;
+        }
+
+        .skill-tag {
+            padding: 0.5rem 1rem;
+            background: var(--light-bg);
+            border-radius: 25px;
+            font-size: 0.9rem;
+            color: var(--accent);
+            font-weight: 500;
+            transition: all 0.3s ease;
+        }
+
+        .skill-tag:hover {
+            background: var(--accent);
+            color: white;
+            transform: translateY(-2px);
+        }
+
+        /* Projects Section */
+        .projects {
+            padding: 5rem 0;
+            background: var(--light-bg);
+        }
+
+        .section-header {
+            text-align: center;
+            margin-bottom: 3rem;
+        }
+
+        .section-header h2 {
+            color: var(--accent);
+        }
+
+        .section-header p {
+            font-size: 1.2rem;
+            color: var(--text-light);
+            max-width: 600px;
+            margin: 0 auto;
+        }
+
+        .projects-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(350px, 1fr));
+            gap: 2rem;
+            margin-top: 3rem;
+        }
+
+        .project-card {
+            background: white;
+            border-radius: 15px;
+            overflow: hidden;
+            box-shadow: var(--card-shadow);
+            transition: all 0.3s ease;
+            cursor: pointer;
+        }
+
+        .project-card:hover {
+            transform: translateY(-5px);
+            box-shadow: var(--hover-shadow);
+        }
+
+        .project-image {
+            height: 200px;
+            background: linear-gradient(135deg, var(--accent-light) 0%, var(--secondary) 100%);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 3rem;
+            color: white;
+        }
+
+        .project-content {
+            padding: 1.5rem;
+        }
+
+        .project-tags {
+            display: flex;
+            gap: 0.5rem;
+            margin-bottom: 1rem;
+            flex-wrap: wrap;
+        }
+
+        .project-tag {
+            padding: 0.25rem 0.75rem;
+            background: var(--light-bg);
+            border-radius: 15px;
+            font-size: 0.8rem;
+            color: var(--accent);
+        }
+
+        .project-content h3 {
+            color: var(--text);
+            margin-bottom: 0.75rem;
+        }
+
+        .project-content p {
+            color: var(--text-light);
+            line-height: 1.6;
+            margin-bottom: 1rem;
+        }
+
+        .project-link {
+            color: var(--accent);
+            text-decoration: none;
+            font-weight: 600;
+            display: inline-flex;
+            align-items: center;
+            gap: 0.5rem;
+            transition: gap 0.3s ease;
+        }
+
+        .project-link:hover {
+            gap: 1rem;
+        }
+
+        /* Blog Section */
+        .blog {
+            padding: 5rem 0;
+            background: white;
+        }
+
+        .blog h2 {
+            color: var(--accent);
+        }
+
+        .blog-intro {
+            text-align: center;
+            max-width: 800px;
+            margin: 0 auto 3rem;
+        }
+
+        .blog-intro p {
+            font-size: 1.2rem;
+            color: var(--text-light);
+            margin-top: 1rem;
+        }
+
+        .blog-posts {
+            display: grid;
+            gap: 2rem;
+            max-width: 900px;
+            margin: 0 auto;
+        }
+
+        .blog-post {
+            background: white;
+            border-radius: 15px;
+            padding: 2rem;
+            box-shadow: var(--card-shadow);
+            transition: all 0.3s ease;
+            border-left: 4px solid var(--accent);
+        }
+
+        .blog-post:hover {
+            transform: translateX(5px);
+            box-shadow: var(--hover-shadow);
+        }
+
+        .blog-meta {
+            display: flex;
+            gap: 1rem;
+            margin-bottom: 1rem;
+            color: var(--text-light);
+            font-size: 0.9rem;
+        }
+
+        .blog-post h3 {
+            color: var(--text);
+            margin-bottom: 1rem;
+            font-size: 1.75rem;
+        }
+
+        .blog-excerpt {
+            color: var(--text-light);
+            line-height: 1.8;
+            margin-bottom: 1.5rem;
+            font-size: 1.1rem;
+        }
+
+        .read-more {
+            color: var(--accent);
+            text-decoration: none;
+            font-weight: 600;
+            display: inline-flex;
+            align-items: center;
+            gap: 0.5rem;
+            transition: gap 0.3s ease;
+        }
+
+        .read-more:hover {
+            gap: 1rem;
+        }
+
+        /* Contact Section */
+        .contact {
+            padding: 5rem 0;
+            background: linear-gradient(135deg, var(--light-bg) 0%, white 100%);
+            text-align: center;
+        }
+
+        .contact h2 {
+            color: var(--accent);
+            margin-bottom: 1rem;
+        }
+
+        .contact p {
+            font-size: 1.2rem;
+            color: var(--text-light);
+            margin-bottom: 2rem;
+        }
+
+        .social-links {
+            display: flex;
+            justify-content: center;
+            gap: 2rem;
+            margin-top: 2rem;
+        }
+
+        .social-link {
+            width: 50px;
+            height: 50px;
+            border-radius: 50%;
+            background: white;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            text-decoration: none;
+            color: var(--accent);
+            box-shadow: var(--card-shadow);
+            transition: all 0.3s ease;
+            font-size: 1.2rem;
+        }
+
+        .social-link:hover {
+            background: var(--accent);
+            color: white;
+            transform: translateY(-5px);
+            box-shadow: var(--hover-shadow);
+        }
+
+        /* Footer */
+        footer {
+            background: var(--primary);
+            color: white;
+            text-align: center;
+            padding: 2rem 0;
+        }
+
+        /* Mobile Responsiveness */
+        @media (max-width: 768px) {
+            .nav-links {
+                display: none;
+            }
+
+            .about-content {
+                grid-template-columns: 1fr;
+                text-align: center;
+            }
+
+            .profile-image {
+                margin: 0 auto;
+            }
+
+            .projects-grid {
+                grid-template-columns: 1fr;
+            }
+
+            .cta-buttons {
+                flex-direction: column;
+                align-items: flex-start;
+            }
+        }
+
+        /* Animations */
+        .fade-in {
+            opacity: 0;
+            transform: translateY(30px);
+            transition: all 0.6s ease;
+        }
+
+        .fade-in.visible {
+            opacity: 1;
+            transform: translateY(0);
+        }
+    </style>
 </head>
 <body>
-  <header>
-    <h1>Andre DeGregorio</h1>
-    <nav>
-      <a href="#about">About</a>
-      <a href="#projects">Projects</a>
+    <!-- Navigation -->
+    <nav id="navbar">
+        <div class="nav-container">
+            <a href="#home" class="logo">YN</a>
+            <ul class="nav-links">
+                <li><a href="#home">Home</a></li>
+                <li><a href="#about">About</a></li>
+                <li><a href="#projects">Projects</a></li>
+                <li><a href="#blog">Writing</a></li>
+                <li><a href="#contact">Contact</a></li>
+            </ul>
+        </div>
     </nav>
-  </header>
 
-  <main>
-    <section id="about">
-      <img src="profile.jpg" alt="Profile Photo" class="profile">
-      <h2>About Me</h2>
-      <p>
-        I'm a data analyst who loves using Python, R, and SQL to solve real-world problems. I enjoy building
-        tools, apps, and visualizations that make data more accessible.
-      </p>
+    <!-- Hero Section -->
+    <section class="hero" id="home">
+        <div class="hero-content">
+            <div class="hero-text fade-in">
+                <h1>Data Science Meets Storytelling</h1>
+                <p class="subtitle">Hi, I'm Andre. I transform complex data into compelling narratives that drive meaningful decisions.</p>
+                <div class="cta-buttons">
+                    <a href="#projects" class="btn btn-primary">View My Work</a>
+                    <a href="#blog" class="btn btn-secondary">Read My Thoughts</a>
+                </div>
+            </div>
+        </div>
     </section>
 
-    <section id="projects">
-      <h2>Projects</h2>
-      <div class="project">
-        <h3>Churn Prediction App</h3>
-        <p>Used logistic regression in a Shiny app to identify likely customer churn.</p>
-      </div>
-      <div class="project">
-        <h3>NBA Stats Dashboard</h3>
-        <p>Interactive Python dashboard visualizing advanced player stats using Plotly and Dash.</p>
-      </div>
+    <!-- About Section -->
+    <section class="about" id="about">
+        <div class="container">
+            <div class="about-content fade-in">
+                <div class="profile-image">
+                    <img src="https://via.placeholder.com/350x350" alt="Your Name">
+                </div>
+                <div class="about-text">
+                    <h2>About Me</h2>
+                    <p class="serif">I believe that data without narrative is just noise, and stories without data lack credibility. As a data scientist with a passion for clear communication, I bridge the gap between technical complexity and human understanding.</p>
+                    <p class="serif">My approach combines rigorous statistical analysis with thoughtful storytelling, helping organizations not just understand what their data says, but why it matters and what to do about it.</p>
+                    <div class="skills">
+                        <span class="skill-tag">Python</span>
+                        <span class="skill-tag">R</span>
+                        <span class="skill-tag">Machine Learning</span>
+                        <span class="skill-tag">Statistical Analysis</span>
+                        <span class="skill-tag">Data Visualization</span>
+                        <span class="skill-tag">Technical Writing</span>
+                        <span class="skill-tag">SQL</span>
+                        <span class="skill-tag">Deep Learning</span>
+                    </div>
+                </div>
+            </div>
+        </div>
     </section>
-  </main>
 
-  <footer>
-    <p>&copy; 2025 Andre DeGregorio</p>
-  </footer>
+    <!-- Projects Section -->
+    <section class="projects" id="projects">
+        <div class="container">
+            <div class="section-header fade-in">
+                <h2>Featured Projects</h2>
+                <p>Where data science meets real-world impact</p>
+            </div>
+            <div class="projects-grid">
+                <div class="project-card fade-in">
+                    <div class="project-image">📊</div>
+                    <div class="project-content">
+                        <div class="project-tags">
+                            <span class="project-tag">NLP</span>
+                            <span class="project-tag">Python</span>
+                            <span class="project-tag">BERT</span>
+                        </div>
+                        <h3>Sentiment Analysis Pipeline</h3>
+                        <p>Built an end-to-end sentiment analysis system processing 1M+ customer reviews, improving response time by 40% and customer satisfaction scores.</p>
+                        <a href="#" class="project-link">View Project →</a>
+                    </div>
+                </div>
+                <div class="project-card fade-in">
+                    <div class="project-image">🧠</div>
+                    <div class="project-content">
+                        <div class="project-tags">
+                            <span class="project-tag">Deep Learning</span>
+                            <span class="project-tag">TensorFlow</span>
+                            <span class="project-tag">Time Series</span>
+                        </div>
+                        <h3>Predictive Maintenance Model</h3>
+                        <p>Developed a neural network model predicting equipment failures 72 hours in advance with 94% accuracy, saving $2M annually in downtime costs.</p>
+                        <a href="#" class="project-link">View Project →</a>
+                    </div>
+                </div>
+                <div class="project-card fade-in">
+                    <div class="project-image">📈</div>
+                    <div class="project-content">
+                        <div class="project-tags">
+                            <span class="project-tag">Bayesian Stats</span>
+                            <span class="project-tag">A/B Testing</span>
+                            <span class="project-tag">Causal Inference</span>
+                        </div>
+                        <h3>Experimentation Framework</h3>
+                        <p>Designed a Bayesian A/B testing framework that reduced experiment runtime by 50% while maintaining statistical rigor and interpretability.</p>
+                        <a href="#" class="project-link">View Project →</a>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Blog Section -->
+    <section class="blog" id="blog">
+        <div class="container">
+            <div class="blog-intro fade-in">
+                <h2>Writing & Deep Thinking</h2>
+                <p>Where I explore the intersection of data, decision-making, and human behavior through long-form analysis and thoughtful commentary.</p>
+            </div>
+            <div class="blog-posts">
+                <article class="blog-post fade-in">
+                    <div class="blog-meta">
+                        <span>📅 March 15, 2024</span>
+                        <span>⏱️ 12 min read</span>
+                    </div>
+                    <h3>The Paradox of Precision: When Perfect Models Make Poor Decisions</h3>
+                    <p class="blog-excerpt serif">An exploration of why the most accurate models aren't always the most useful, and how to balance statistical rigor with practical wisdom in data science. Through three case studies, I examine the hidden costs of optimization and the value of interpretable imperfection...</p>
+                    <a href="#" class="read-more">Continue Reading →</a>
+                </article>
+                <article class="blog-post fade-in">
+                    <div class="blog-meta">
+                        <span>📅 February 28, 2024</span>
+                        <span>⏱️ 15 min read</span>
+                    </div>
+                    <h3>Causality in the Wild: A Practitioner's Guide to Asking Better Questions</h3>
+                    <p class="blog-excerpt serif">Most data scientists are trained to find patterns, but the real skill lies in knowing which patterns matter. This deep dive into causal inference explores how to move beyond correlation to understand the mechanisms that drive real change...</p>
+                    <a href="#" class="read-more">Continue Reading →</a>
+                </article>
+                <article class="blog-post fade-in">
+                    <div class="blog-meta">
+                        <span>📅 February 10, 2024</span>
+                        <span>⏱️ 10 min read</span>
+                    </div>
+                    <h3>The Art of Statistical Storytelling: Making Numbers Speak Human</h3>
+                    <p class="blog-excerpt serif">Data visualization is just the beginning. True statistical communication requires understanding your audience's mental models and crafting narratives that bridge the gap between mathematical truth and human intuition...</p>
+                    <a href="#" class="read-more">Continue Reading →</a>
+                </article>
+            </div>
+        </div>
+    </section>
+
+    <!-- Contact Section -->
+    <section class="contact" id="contact">
+        <div class="container fade-in">
+            <h2>Let's Connect</h2>
+            <p>I'm always interested in thoughtful conversations about data, writing, and the future of decision-making.</p>
+            <a href="mailto:your.email@example.com" class="btn btn-primary">Get In Touch</a>
+            <div class="social-links">
+                <a href="#" class="social-link" aria-label="GitHub">
+                    <svg width="24" height="24" fill="currentColor" viewBox="0 0 24 24">
+                        <path d="M12 0c-6.626 0-12 5.373-12 12 0 5.302 3.438 9.8 8.207 11.387.599.111.793-.261.793-.577v-2.234c-3.338.726-4.033-1.416-4.033-1.416-.546-1.387-1.333-1.756-1.333-1.756-1.089-.745.083-.729.083-.729 1.205.084 1.839 1.237 1.839 1.237 1.07 1.834 2.807 1.304 3.492.997.107-.775.418-1.305.762-1.604-2.665-.305-5.467-1.334-5.467-5.931 0-1.311.469-2.381 1.236-3.221-.124-.303-.535-1.524.117-3.176 0 0 1.008-.322 3.301 1.23.957-.266 1.983-.399 3.003-.404 1.02.005 2.047.138 3.006.404 2.291-1.552 3.297-1.23 3.297-1.23.653 1.653.242 2.874.118 3.176.77.84 1.235 1.911 1.235 3.221 0 4.609-2.807 5.624-5.479 5.921.43.372.823 1.102.823 2.222v3.293c0 .319.192.694.801.576 4.765-1.589 8.199-6.086 8.199-11.386 0-6.627-5.373-12-12-12z"/>
+                    </svg>
+                </a>
+                <a href="#" class="social-link" aria-label="LinkedIn">
+                    <svg width="24" height="24" fill="currentColor" viewBox="0 0 24 24">
+                        <path d="M19 0h-14c-2.761 0-5 2.239-5 5v14c0 2.761 2.239 5 5 5h14c2.762 0 5-2.239 5-5v-14c0-2.761-2.238-5-5-5zm-11 19h-3v-11h3v11zm-1.5-12.268c-.966 0-1.75-.79-1.75-1.764s.784-1.764 1.75-1.764 1.75.79 1.75 1.764-.783 1.764-1.75 1.764zm13.5 12.268h-3v-5.604c0-3.368-4-3.113-4 0v5.604h-3v-11h3v1.765c1.396-2.586 7-2.777 7 2.476v6.759z"/>
+                    </svg>
+                </a>
+                <a href="#" class="social-link" aria-label="Twitter">
+                    <svg width="24" height="24" fill="currentColor" viewBox="0 0 24 24">
+                        <path d="M23.953 4.57a10 10 0 01-2.825.775 4.958 4.958 0 002.163-2.723c-.951.555-2.005.959-3.127 1.184a4.92 4.92 0 00-8.384 4.482C7.69 8.095 4.067 6.13 1.64 3.162a4.822 4.822 0 00-.666 2.475c0 1.71.87 3.213 2.188 4.096a4.904 4.904 0 01-2.228-.616v.06a4.923 4.923 0 003.946 4.827 4.996 4.996 0 01-2.212.085 4.936 4.936 0 004.604 3.417 9.867 9.867 0 01-6.102 2.105c-.39 0-.779-.023-1.17-.067a13.995 13.995 0 007.557 2.209c9.053 0 13.998-7.496 13.998-13.985 0-.21 0-.42-.015-.63A9.935 9.935 0 0024 4.59z"/>
+                    </svg>
+                </a>
+            </div>
+        </div>
+    </section>
+
+    <!-- Footer -->
+    <footer>
+        <div class="container">
+            <p>&copy; 2024 Your Name. Built with curiosity and caffeine.</p>
+        </div>
+    </footer>
+
+    <script>
+        // Smooth scrolling for navigation links
+        document.querySelectorAll('a[href^="#"]').forEach(anchor => {
+            anchor.addEventListener('click', function (e) {
+                e.preventDefault();
+                const target = document.querySelector(this.getAttribute('href'));
+                if (target) {
+                    target.scrollIntoView({
+                        behavior: 'smooth',
+                        block: 'start'
+                    });
+                }
+            });
+        });
+
+        // Navbar scroll effect
+        window.addEventListener('scroll', function() {
+            const navbar = document.getElementById('navbar');
+            if (window.scrollY > 50) {
+                navbar.classList.add('scrolled');
+            } else {
+                navbar.classList.remove('scrolled');
+            }
+        });
+
+        // Fade in animation on scroll
+        const observerOptions = {
+            threshold: 0.1,
+            rootMargin: '0px 0px -50px 0px'
+        };
+
+        const observer = new IntersectionObserver(function(entries) {
+            entries.forEach(entry => {
+                if (entry.isIntersecting) {
+                    entry.target.classList.add('visible');
+                }
+            });
+        }, observerOptions);
+
+        document.querySelectorAll('.fade-in').forEach(el => {
+            observer.observe(el);
+        });
+
+        // Add some personality with random emoji changes
+        const projectEmojis = ['📊', '📈', '🧠', '💡', '🔬', '📉', '🎯', '🚀'];
+        const projectCards = document.querySelectorAll('.project-image');
+        
+        projectCards.forEach((card, index) => {
+            setInterval(() => {
+                const currentEmoji = card.textContent;
+                let newEmoji = projectEmojis[Math.floor(Math.random() * projectEmojis.length)];
+                while (newEmoji === currentEmoji) {
+                    newEmoji = projectEmojis[Math.floor(Math.random() * projectEmojis.length)];
+                }
+                card.style.transform = 'scale(0.8)';
+                setTimeout(() => {
+                    card.textContent = newEmoji;
+                    card.style.transform = 'scale(1)';
+                }, 150);
+            }, 10000 + (index * 2000));
+        });
+    </script>
 </body>
 </html>
